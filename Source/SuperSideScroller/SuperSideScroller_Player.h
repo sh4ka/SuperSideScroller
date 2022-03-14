@@ -21,17 +21,24 @@ protected:
 	//Override base character class function to setup our player input component
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-private:
-	bool bIsSprinting;
-
 	void Sprint();
-	
-	void Throw();
 
 	void StopSprinting();
 
+public:
+	
+	void Throw();
+
+	void SpawnProjectile();
+
+private:
+	bool bIsSprinting;
+
 	UPROPERTY(EditAnywhere)
 	class UAnimMontage* ThrowMontage;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class APlayerProjectile> PlayerProjectile;
 	
 	
 };

@@ -6,6 +6,9 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Animation/AnimInstance.h"
+#include "PlayerProjectile.h"
+#include "Engine/World.h"
+#include "Components/SphereComponent.h"
 
 ASuperSideScroller_Player::ASuperSideScroller_Player()
 {
@@ -51,5 +54,26 @@ void ASuperSideScroller_Player::StopSprinting()
 		UE_LOG(LogMyGame, Verbose, TEXT("Finish Sprinting"));
 		bIsSprinting = false;
 		GetCharacterMovement()->MaxWalkSpeed = 300.0f;
+	}
+}
+
+void ASuperSideScroller_Player::SpawnProjectile()
+{
+	if (PlayerProjectile)
+	{
+		UWorld* World = GetWorld();
+		if (World)
+		{
+			FActorSpawnParameters SpawnParameters;
+			SpawnParameters.Owner = this;
+			FVector SpawnLocation = this->GetMesh()->GetSocketLocation(FName("ProjectileSocket"));
+			FRotator Rotation = GetActorForwardVector().Rotation();
+			APlayerProjectile* Projectile = World->SpawnActor<APlayerProjectile>(PlayerProjectile, SpawnLocation,
+				Rotation, SpawnParameters);
+			if (Projectile)
+			{
+				Projectile->CollisionComp->MoveIgnoreActors.Add(SpawnParameters.Owner);
+			}
+		}
 	}
 }
