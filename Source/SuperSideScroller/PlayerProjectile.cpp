@@ -33,3 +33,8 @@ void APlayerProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, 
 {
 	UE_LOG(LogTemp, Warning, TEXT("HIT"));
 }
+
+void APlayerProjectile::ExplodeProjectile()
+{
+	Destroy();
+}
