@@ -29,6 +29,9 @@ private:
 	void Throw();
 
 	void StopSprinting();
+
+	UPROPERTY(EditAnywhere)
+	class UAnimMontage* ThrowMontage;
 	
 	
 };

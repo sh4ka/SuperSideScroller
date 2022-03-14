@@ -5,6 +5,7 @@
 #include "SuperSideScroller.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Animation/AnimInstance.h"
 
 ASuperSideScroller_Player::ASuperSideScroller_Player()
 {
@@ -33,7 +34,14 @@ void ASuperSideScroller_Player::Sprint()
 
 void ASuperSideScroller_Player::Throw()
 {
-	UE_LOG(LogMyGame, Verbose, TEXT("Throw"));
+	if (ThrowMontage)
+	{
+		bool bIsMontagePlaying = GetMesh()->GetAnimInstance()->Montage_IsPlaying(ThrowMontage);
+		if (!bIsMontagePlaying)
+		{
+			GetMesh()->GetAnimInstance()->Montage_Play(ThrowMontage, 1.0f);
+		}
+	}
 }
 
 void ASuperSideScroller_Player::StopSprinting()
