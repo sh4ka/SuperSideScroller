@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimNotifies/AnimNotify.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "SuperSideScroller/SuperSideScroller_Player.h"
+
 #include "Anim_ProjectileNotify.generated.h"
 
 /**

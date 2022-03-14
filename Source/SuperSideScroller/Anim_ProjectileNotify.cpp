@@ -5,5 +5,9 @@
 
 void UAnim_ProjectileNotify::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Throw notify"));
+	ASuperSideScroller_Player* Player = Cast<ASuperSideScroller_Player>(MeshComp->GetOwner());
+	if (Player)
+	{
+		Player->SpawnProjectile();
+	}
 }
