@@ -24,6 +24,12 @@ public:
 	           const FHitResult& Hit);
 	void ExplodeProjectile();
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	class UParticleSystem* DestroyEffect;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	class USoundBase* DestroySound;
+
 private:
 	// projectile movement component
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Movement, meta=(AllowPrivateAccess="true"))
