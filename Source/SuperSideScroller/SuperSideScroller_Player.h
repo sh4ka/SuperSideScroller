@@ -24,6 +24,8 @@ protected:
 	void Sprint();
 
 	void StopSprinting();
+	void EndPowerup();
+
 
 public:
 	
@@ -35,6 +37,8 @@ public:
 	int32 GetCurrentNumberOfCollectables() { return NumberOfCollectables;}
 
 	void IncrementNumberofCollectables(int32 Value);
+	void IncreaseMovementPowerup();
+
 
 private:
 	bool bIsSprinting;
@@ -49,8 +53,6 @@ private:
 
 	FTimerHandle PowerupHandle;
 	bool bHasPowerupActive;
-	void IncreaseMovementPowerup();
-	void EndPowerup();
 	
 	
 };
