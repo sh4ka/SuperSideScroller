@@ -77,3 +77,17 @@ void ASuperSideScroller_Player::SpawnProjectile()
 		}
 	}
 }
+
+void ASuperSideScroller_Player::IncrementNumberofCollectables(int32 Value)
+{
+	if (Value <= 0)
+	{
+		return;
+	}
+	else
+	{
+		NumberOfCollectables += Value;
+		UE_LOG(LogTemp, Warning, TEXT("Number of Coins: %d"), NumberOfCollectables);
+	}
+	
+}

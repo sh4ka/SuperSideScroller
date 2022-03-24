@@ -31,6 +31,11 @@ public:
 
 	void SpawnProjectile();
 
+	UFUNCTION(BlueprintPure)
+	int32 GetCurrentNumberOfCollectables() { return NumberOfCollectables;}
+
+	void IncrementNumberofCollectables(int32 Value);
+
 private:
 	bool bIsSprinting;
 
@@ -39,6 +44,8 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class APlayerProjectile> PlayerProjectile;
+
+	int32 NumberOfCollectables;
 	
 	
 };
