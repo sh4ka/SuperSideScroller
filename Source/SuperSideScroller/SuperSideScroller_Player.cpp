@@ -9,6 +9,7 @@
 #include "PlayerProjectile.h"
 #include "Engine/World.h"
 #include "Components/SphereComponent.h"
+#include "TimerManager.h"
 
 ASuperSideScroller_Player::ASuperSideScroller_Player()
 {
@@ -29,9 +30,15 @@ void ASuperSideScroller_Player::Sprint()
 {
 	if (!bIsSprinting)
 	{
-		UE_LOG(LogMyGame, Verbose, TEXT("Started Sprinting"));
 		bIsSprinting = true;
-		GetCharacterMovement()->MaxWalkSpeed = 500.0f;
+		if (bHasPowerupActive)
+		{
+			GetCharacterMovement()->MaxWalkSpeed = 900.0f;
+		}
+		else
+		{
+			GetCharacterMovement()->MaxWalkSpeed = 500.0f;			
+		}
 	}
 }
 
@@ -51,9 +58,15 @@ void ASuperSideScroller_Player::StopSprinting()
 {
 	if (bIsSprinting)
 	{
-		UE_LOG(LogMyGame, Verbose, TEXT("Finish Sprinting"));
 		bIsSprinting = false;
-		GetCharacterMovement()->MaxWalkSpeed = 300.0f;
+		if (bHasPowerupActive)
+		{
+			GetCharacterMovement()->MaxWalkSpeed = 500.0f;
+		}
+		else
+		{
+			GetCharacterMovement()->MaxWalkSpeed = 300.0f;
+		}		
 	}
 }
 
@@ -90,4 +103,28 @@ void ASuperSideScroller_Player::IncrementNumberofCollectables(int32 Value)
 		UE_LOG(LogTemp, Warning, TEXT("Number of Coins: %d"), NumberOfCollectables);
 	}
 	
+}
+
+void ASuperSideScroller_Player::IncreaseMovementPowerup()
+{
+	bHasPowerupActive = true;
+	GetCharacterMovement()->MaxWalkSpeed = 500.0f;
+	GetCharacterMovement()->JumpZVelocity = 1500.0f;
+	UWorld* World = GetWorld();
+	if (World)
+	{
+		World->GetTimerManager().SetTimer(PowerupHandle, this, &ASuperSideScroller_Player::EndPowerup, 8.0f, false);
+	}
+}
+
+void ASuperSideScroller_Player::EndPowerup()
+{
+	bHasPowerupActive = false;
+	GetCharacterMovement()->MaxWalkSpeed = 300.0f;
+	GetCharacterMovement()->JumpZVelocity = 1000.0f;
+	UWorld* World = GetWorld();
+	if (World)
+	{
+		World->GetTimerManager().ClearTimer(PowerupHandle);
+	}
 }

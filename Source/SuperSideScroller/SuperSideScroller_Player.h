@@ -46,6 +46,11 @@ private:
 	TSubclassOf<class APlayerProjectile> PlayerProjectile;
 
 	int32 NumberOfCollectables;
+
+	FTimerHandle PowerupHandle;
+	bool bHasPowerupActive;
+	void IncreaseMovementPowerup();
+	void EndPowerup();
 	
 	
 };
